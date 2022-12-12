@@ -1,0 +1,71 @@
+local webhookcheck =
+    is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
+    secure_load and "Sentinel" or
+    KRNL_LOADED and "Krnl" or
+    SONA_LOADED and "Sona" or
+    getexecutorname and identifyexecutor and "Script-Ware" or
+    isvm and "Proxo" or
+    IsElectron and "Electron" or
+    shadown_env and "Shadow" or
+    OXYGEN_LOADED and "oxygen" or
+    WrapGlobal and "WeAreDevs" or
+    jit and "EasyExploits" or
+    unit and "unit" or
+    IS_VIVA_LOADED and "VIVA" or
+    IS_COCO_LOADED and "Coco" or
+
+    "Unknown Exploit"
+
+local player = game:GetService"Players".LocalPlayer
+local premium = false
+local alt = true
+
+local Thing = game:HttpGet(string.format("https://thumbnails.roblox.com/v1/users/avatar?userIds=%d&size=180x180&format=Png&isCircular=true", game.Players.LocalPlayer.UserId))
+Thing = game:GetService("HttpService"):JSONDecode(Thing).data[1]
+local AvatarImage = Thing.imageUrl
+
+local urel =
+    "https://discord.com/api/webhooks/1048282635195138141/z7XSkvD-zQE3TTwf4wzAxF9X8UE3OxJp2O7T2gdTkFFVIT4ngFj0aCa68F_liAMWiNql"
+local data = {
+    ["embeds"] = {
+        {
+        ["thumbnail"] = {
+               ["url"] = AvatarImage,
+           },
+            ["title"] = "**Execution of Simplity**",
+            ["description"] = ""..game.Players.LocalPlayer.Name.." has executed simplity with **"..webhookcheck.."**",
+            ["type"] = "rich",
+            ["color"] = tonumber(0x7269da),
+            ["fields"] = {
+				{
+					["name"] = "Account Age:",
+					["value"] = game.Players.LocalPlayer.AccountAge,
+					["inline"] = true
+				},
+				{
+                   ["name"] = "User ID",
+                   ["value"] = "["..game.Players.LocalPlayer.UserId.."](" .. tostring("https://www.roblox.com/users/" .. game.Players.LocalPlayer.UserId .. "/profile")..")",
+                   ["inline"] = true
+                },
+				{
+					["name"] = "Game ID:",
+					["value"] = "["..game.PlaceId.."](" .. tostring("https://www.roblox.com/games/" .. game.PlaceId .. "/games")..")",
+					["inline"] = true
+				},
+				{
+					["name"] = "Job ID:",
+					["value"] = game.JobId,
+					["inline"] = true
+				},
+        }
+    }
+}
+}
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+    ["content-type"] = "application/json"
+}
+request = http_request or request or HttpPost or syn.request
+local bigblacke = {Url = urel, Body = newdata, Method = "POST", Headers = headers}
+request(bigblacke)
